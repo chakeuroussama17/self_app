@@ -141,7 +141,7 @@ function BusinessSummaryCard({ onViewFull }) {
     }
 
     // Load pipeline deals
-    const dealsStr = localStorage.getItem('anchor_business_trackB_deals')
+    const dealsStr = storage.getItem('anchor_business_trackB_deals')
     const deals = dealsStr ? JSON.parse(dealsStr) : []
     const activePipeline = deals.filter(d => d.status !== 'won' && d.status !== 'lost').length
 

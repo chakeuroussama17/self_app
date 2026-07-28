@@ -187,7 +187,7 @@ export const csvExport = {
 
   // Export Track B (Pipeline)
   exportTrackB: () => {
-    const saved = localStorage.getItem('anchor_business_trackB_deals')
+    const saved = storage.getItem('anchor_business_trackB_deals')
     const deals = saved ? JSON.parse(saved) : []
 
     const rows = deals.map(deal => ({
@@ -218,7 +218,7 @@ export const csvExport = {
 
   // Export Track C (App)
   exportTrackC: () => {
-    const saved = localStorage.getItem('anchor_business_trackC_history')
+    const saved = storage.getItem('anchor_business_trackC_history')
     const history = saved ? JSON.parse(saved) : []
 
     const rows = history.map(entry => ({
@@ -243,7 +243,7 @@ export const csvExport = {
 
   // Export Track D (Scholarships)
   exportTrackD: () => {
-    const saved = localStorage.getItem('anchor_business_trackD_apps')
+    const saved = storage.getItem('anchor_business_trackD_apps')
     const apps = saved ? JSON.parse(saved) : []
 
     const rows = apps.map(app => ({

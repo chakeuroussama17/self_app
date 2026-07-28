@@ -105,7 +105,7 @@ function TrackA() {
 
     loadWeeklyLogs()
 
-    const saved = localStorage.getItem('anchor_business_targets')
+    const saved = storage.getItem('anchor_business_targets')
     if (saved) setTargets(JSON.parse(saved))
   }, [])
 
@@ -163,7 +163,7 @@ function TrackA() {
   }
 
   const saveTargets = () => {
-    localStorage.setItem('anchor_business_targets', JSON.stringify(targets))
+    storage.setItem('anchor_business_targets', JSON.stringify(targets))
     setEditingTargets(false)
   }
 
@@ -499,13 +499,13 @@ function TrackB() {
   })
 
   useEffect(() => {
-    const saved = localStorage.getItem('anchor_business_trackB_deals')
+    const saved = storage.getItem('anchor_business_trackB_deals')
     if (saved) setDeals(JSON.parse(saved))
   }, [])
 
   const saveDeals = (updated) => {
     setDeals(updated)
-    localStorage.setItem('anchor_business_trackB_deals', JSON.stringify(updated))
+    storage.setItem('anchor_business_trackB_deals', JSON.stringify(updated))
   }
 
   const addDeal = () => {
@@ -745,27 +745,27 @@ function TrackC() {
   const [weeklyHistory, setWeeklyHistory] = useState([])
 
   useEffect(() => {
-    const saved = localStorage.getItem('anchor_business_trackC_milestones')
+    const saved = storage.getItem('anchor_business_trackC_milestones')
     if (saved) setMilestones(JSON.parse(saved))
 
-    const savedMetrics = localStorage.getItem('anchor_business_trackC_metrics')
+    const savedMetrics = storage.getItem('anchor_business_trackC_metrics')
     if (savedMetrics) {
       const parsed = JSON.parse(savedMetrics)
       setWeeklyMetrics(parsed)
     }
 
-    const savedHistory = localStorage.getItem('anchor_business_trackC_history')
+    const savedHistory = storage.getItem('anchor_business_trackC_history')
     if (savedHistory) setWeeklyHistory(JSON.parse(savedHistory))
   }, [])
 
   const toggleMilestone = (key) => {
     const updated = { ...milestones, [key]: !milestones[key] }
     setMilestones(updated)
-    localStorage.setItem('anchor_business_trackC_milestones', JSON.stringify(updated))
+    storage.setItem('anchor_business_trackC_milestones', JSON.stringify(updated))
   }
 
   const saveMetrics = () => {
-    localStorage.setItem('anchor_business_trackC_metrics', JSON.stringify(weeklyMetrics))
+    storage.setItem('anchor_business_trackC_metrics', JSON.stringify(weeklyMetrics))
 
     const entry = {
       week: storage.getTodayDate(),
@@ -773,7 +773,7 @@ function TrackC() {
     }
     const updated = [...weeklyHistory, entry]
     setWeeklyHistory(updated)
-    localStorage.setItem('anchor_business_trackC_history', JSON.stringify(updated))
+    storage.setItem('anchor_business_trackC_history', JSON.stringify(updated))
 
     alert('Weekly metrics saved!')
   }
@@ -910,13 +910,13 @@ function TrackD() {
   })
 
   useEffect(() => {
-    const saved = localStorage.getItem('anchor_business_trackD_apps')
+    const saved = storage.getItem('anchor_business_trackD_apps')
     if (saved) setApps(JSON.parse(saved))
   }, [])
 
   const saveApps = (updated) => {
     setApps(updated)
-    localStorage.setItem('anchor_business_trackD_apps', JSON.stringify(updated))
+    storage.setItem('anchor_business_trackD_apps', JSON.stringify(updated))
   }
 
   const addApp = () => {
@@ -1123,7 +1123,7 @@ function WeeklyReview() {
 
   useEffect(() => {
     const weekStart = getWeekStart(storage.getTodayDate())
-    const saved = localStorage.getItem(`anchor_business_review_${weekStart}`)
+    const saved = storage.getItem(`anchor_business_review_${weekStart}`)
     if (saved) setReview(saved)
   }, [])
 
@@ -1138,7 +1138,7 @@ function WeeklyReview() {
 
   const saveReview = () => {
     const weekStart = getWeekStart(storage.getTodayDate())
-    localStorage.setItem(`anchor_business_review_${weekStart}`, review)
+    storage.setItem(`anchor_business_review_${weekStart}`, review)
     alert('Review saved!')
   }
 

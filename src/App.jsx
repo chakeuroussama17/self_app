@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { storage } from './utils/storage'
 import Dashboard from './components/Dashboard'
 import Prayer from './components/Prayer'
 import Sleep from './components/Sleep'
@@ -27,11 +28,34 @@ const SECTIONS = {
 function App() {
   const [currentSection, setCurrentSection] = useState(SECTIONS.dashboard)
   const [refreshKey, setRefreshKey] = useState(0)
+  const currentDate = useRef(storage.getTodayDate())
 
   // Trigger refresh in all components when data changes
   const triggerRefresh = () => {
     setRefreshKey(k => k + 1)
   }
+
+  // Roll over to a new day: when the calendar date changes (app left open
+  // past midnight, or resumed the next day), remount sections so prayers
+  // re-fetch and every module shows the fresh day.
+  useEffect(() => {
+    const checkNewDay = () => {
+      const today = storage.getTodayDate()
+      if (today !== currentDate.current) {
+        currentDate.current = today
+        triggerRefresh()
+      }
+    }
+
+    const interval = setInterval(checkNewDay, 60 * 1000) // check every minute
+    const onVisible = () => { if (!document.hidden) checkNewDay() }
+    document.addEventListener('visibilitychange', onVisible)
+
+    return () => {
+      clearInterval(interval)
+      document.removeEventListener('visibilitychange', onVisible)
+    }
+  }, [])
 
   const renderSection = () => {
     switch (currentSection) {

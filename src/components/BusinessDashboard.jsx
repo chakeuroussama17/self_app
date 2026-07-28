@@ -101,7 +101,7 @@ export default function BusinessDashboard() {
   }
 
   function loadTrackB() {
-    const saved = localStorage.getItem('anchor_business_trackB_deals')
+    const saved = storage.getItem('anchor_business_trackB_deals')
     const deals = saved ? JSON.parse(saved) : []
 
     const byStage = {
@@ -118,8 +118,8 @@ export default function BusinessDashboard() {
   }
 
   function loadTrackC() {
-    const milestones = localStorage.getItem('anchor_business_trackC_milestones')
-    const metrics = localStorage.getItem('anchor_business_trackC_metrics')
+    const milestones = storage.getItem('anchor_business_trackC_milestones')
+    const metrics = storage.getItem('anchor_business_trackC_metrics')
 
     const parsedMilestones = milestones ? JSON.parse(milestones) : {}
     const parsedMetrics = metrics ? JSON.parse(metrics) : {}
@@ -135,7 +135,7 @@ export default function BusinessDashboard() {
   }
 
   function loadTrackD() {
-    const saved = localStorage.getItem('anchor_business_trackD_apps')
+    const saved = storage.getItem('anchor_business_trackD_apps')
     const apps = saved ? JSON.parse(saved) : []
 
     const submitted = apps.filter(a => ['submitted', 'interview', 'result'].includes(a.status)).length

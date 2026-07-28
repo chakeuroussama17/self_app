@@ -20,7 +20,7 @@ export default function Prayer({ onDataChange }) {
 
   // Load saved location on mount
   useEffect(() => {
-    const saved = localStorage.getItem('anchor_prayer_location')
+    const saved = storage.getItem('anchor_prayer_location')
     if (saved) {
       setSavedLocation(saved)
       fetchPrayers(saved)
@@ -60,7 +60,7 @@ export default function Prayer({ onDataChange }) {
       }))
 
       setPrayers(prayerTimes)
-      localStorage.setItem('anchor_prayer_location', cityName)
+      storage.setItem('anchor_prayer_location', cityName)
       setSavedLocation(cityName)
       setShowInput(false)
       setLocation('')

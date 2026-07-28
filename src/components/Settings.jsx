@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { notifications } from '../utils/notifications'
+import { storage } from '../utils/storage'
 import { Bell, BellRing, Clock, CheckCircle2 } from 'lucide-react'
 
 export default function Settings() {
@@ -10,7 +11,7 @@ export default function Settings() {
 
   useEffect(() => {
     checkStatus()
-    const saved = localStorage.getItem('anchor_daily_reminder')
+    const saved = storage.getItem('anchor_daily_reminder')
     if (saved) {
       const { enabled, time } = JSON.parse(saved)
       setReminderEnabled(enabled)
@@ -49,7 +50,7 @@ export default function Settings() {
       setStatus('Daily reminder turned off')
     }
     setReminderEnabled(newEnabled)
-    localStorage.setItem('anchor_daily_reminder', JSON.stringify({ enabled: newEnabled, time: reminderTime }))
+    storage.setItem('anchor_daily_reminder', JSON.stringify({ enabled: newEnabled, time: reminderTime }))
     setTimeout(() => setStatus(''), 4000)
   }
 
@@ -59,7 +60,7 @@ export default function Settings() {
       const [h, m] = time.split(':').map(Number)
       await notifications.scheduleDailyReminder(h, m)
     }
-    localStorage.setItem('anchor_daily_reminder', JSON.stringify({ enabled: reminderEnabled, time }))
+    storage.setItem('anchor_daily_reminder', JSON.stringify({ enabled: reminderEnabled, time }))
   }
 
   const sendTest = async () => {

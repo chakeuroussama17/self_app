@@ -1,19 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { storage } from '../utils/storage'
 import { Plus, Trash2, CheckCircle2, Circle, Download } from 'lucide-react'
 import { csvExport } from '../utils/csvExport'
 
 export default function TodoList({ onDataChange }) {
-  const [tasks, setTasks] = useState([])
-  const [input, setInput] = useState('')
-
   const today = storage.getTodayDate()
-  const todayData = storage.getTodayData()
-  const todayTasks = todayData.todos || []
-
-  useEffect(() => {
-    setTasks(todayTasks)
-  }, [todayTasks])
+  const [tasks, setTasks] = useState(() => storage.getTodayData().todos || [])
+  const [input, setInput] = useState('')
 
   const addTask = () => {
     if (!input.trim()) return
